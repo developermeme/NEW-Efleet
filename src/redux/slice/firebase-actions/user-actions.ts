@@ -1,7 +1,7 @@
-import { database, firestore } from "firebase";
+import { firestore } from "firebase";
 import { setConversations, setUserList } from "../nav-slice/Slice";
 
-export const getRealtimeUsers = (uid: string, role: string) => {
+export const getRealtimeUsers = (uid: string) => {
   return async (dispatch: any) => {
     const db = firestore();
 
@@ -10,14 +10,13 @@ export const getRealtimeUsers = (uid: string, role: string) => {
         loading: true,
       })
     );
-
     const unsubscribe = db
       .collection("efleetusers")
       .onSnapshot((querySnapshot: any) => {
         const users: any = [];
         querySnapshot.forEach(function (doc: any) {
           // console.log("users", users);
-          if (doc.data().uid !== uid && doc.data().role === role) {
+          if (doc.data().uid !== uid) {
             users.push(doc.data());
           }
         });
@@ -32,66 +31,47 @@ export const getRealtimeUsers = (uid: string, role: string) => {
     return unsubscribe;
   };
 };
+
 export const updateMessage = (msgObj: any) => {
   return async (dispatch: any) => {
-    let postRef = database().ref("/post/chat");
-    postRef
-      .push({
-        createdAt: database.ServerValue.TIMESTAMP,
+    const db = firestore();
+    db.collection("conversations")
+      .add({
         ...msgObj,
         isView: false,
+        createdAt: new Date(),
       })
-      .then((res) => {
-        console.log(res.key);
+      .then((data) => {
+        console.log(data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+      });
   };
 };
+
 export const getRealtimeConversations = (user: any) => {
-  // console.log("user", user);
+  console.log("user", user);
 
   return async (dispatch: any) => {
-    // const db = firestore();
-    // db.collection("conversations")
-    // .where("user_uid_1", "in", [user.uid_1, user.uid_2])
-    // .orderBy("createdAt", "asc")
-    // .get()
-    // .then((querySnapshot) => {
-    //   const conversations: any[] = [];
-    //   querySnapshot.forEach((doc) => {
-    //     if (
-    //       (doc.data().user_uid_1 === user.uid_1 &&
-    //         doc.data().user_uid_2 === user.uid_2) ||
-    //       (doc.data().user_uid_1 === user.uid_2 &&
-    //         doc.data().user_uid_2 === user.uid_1)
-    //     ) {
-    //       conversations.push(doc.data());
-    //     }
-    //   });
-
-    var ref = database().ref("post");
-    ref
-      .orderByChild("createdAt")
-      .once("value")
-
-      .then(function (snapshot) {
+    const db = firestore();
+    db.collection("conversations")
+      .where("user_uid_1", "in", [user.uid_1, user.uid_2])
+      .orderBy("createdAt", "asc")
+      .onSnapshot((querySnapshot) => {
         const conversations: any[] = [];
-
-        snapshot.forEach(function (childSnapshot) {
-          childSnapshot.forEach(function (colorSnapshot) {
-            console.log(childSnapshot.val());
-            if (
-              (colorSnapshot.val().user_uid_1 === user.uid_1 &&
-                colorSnapshot.val().user_uid_2 === user.uid_2) ||
-              (colorSnapshot.val().user_uid_1 === user.uid_2 &&
-                colorSnapshot.val().user_uid_2 === user.uid_1)
-            ) {
-              conversations.push(colorSnapshot.val());
-            }
-          });
-          dispatch(setConversations(conversations));
-          console.log("conversations", conversations);
+        querySnapshot.forEach((doc) => {
+          if (
+            (doc.data().user_uid_1 === user.uid_1 &&
+              doc.data().user_uid_2 === user.uid_2) ||
+            (doc.data().user_uid_1 === user.uid_2 &&
+              doc.data().user_uid_2 === user.uid_1)
+          ) {
+            conversations.push(doc.data());
+          }
         });
+        dispatch(setConversations(conversations));
+        // console.log("conversations", conversations);
       });
   };
 };

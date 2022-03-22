@@ -28,7 +28,6 @@ export const useLogin = () => {
     const value = e.target.value;
     setLoginCredentials({ ...loginCredentials, [name]: value });
   };
-  const { LoginHubid } = useStorageValues();
 
   const {
     setLoginEmail,
@@ -74,36 +73,6 @@ export const useLogin = () => {
     return () => clearTimeout(timer);
   }, [loginErrors]);
 
-  const handleLoginSubmit = async (e: onClick) => {
-    e.preventDefault();
-
-    const user = {
-      emailId: loginCredentials.emailId,
-      password: loginCredentials.password,
-    };
-
-    if (handleLoginValidation()) {
-      await axios
-        .post(`${user_baseURL}/users/login`, user)
-        .then((response: any) => {
-          console.log("Loginresp", response.data.userId);
-
-          setLoginEmail(user.emailId as any);
-          setLoginHubid(response.data.hubId);
-          setLoginRole(response.data.role);
-          setAdminUserId(response.data.userId);
-          setHubLocation(response.data.hubLocation);
-          // Ensure User is available in firebase
-          var x = response.data.hubId;
-          signin(x);
-        })
-        .catch((error: any) => {
-          console.log(error);
-          setLoginErrors("Incorrect Credentials");
-        });
-    }
-  };
-
   // Updating Logged In User in Firebase
 
   const user = {
@@ -111,24 +80,21 @@ export const useLogin = () => {
     password: "Meme@123",
   };
 
-  const signin = (x: any) => {
+  const signin = () => {
     setSuccessMsg("Processing...");
     auth()
       .signInWithEmailAndPassword(user.email, user.password)
       .then((data: any) => {
         const db = firestore();
-        console.log(data, "data in login");
         const loggedInUser = {
           name: data.user.displayName,
           email: data.user.email,
           role: data.user.role,
           uid: data.user.uid,
         };
-
         db.collection("efleetusers")
           .doc(data.user.uid)
           .update({
-            hubid: x,
             isOnline: true,
             lastseen: new Date(),
           })
@@ -151,6 +117,35 @@ export const useLogin = () => {
         console.log(error);
         setLoginErrors("Please Contact Support Team");
       });
+  };
+
+  const handleLoginSubmit = async (e: onClick) => {
+    e.preventDefault();
+
+    const user = {
+      emailId: loginCredentials.emailId,
+      password: loginCredentials.password,
+    };
+
+    if (handleLoginValidation()) {
+      await axios
+        .post(`${user_baseURL}/users/login`, user)
+        .then((response: any) => {
+          console.log("Loginresp", response.data.userId);
+
+          setLoginEmail(user.emailId as any);
+          setLoginHubid(response.data.hubId);
+          setLoginRole(response.data.role);
+          setAdminUserId(response.data.userId);
+          setHubLocation(response.data.hubLocation);
+          // Ensure User is available in firebase
+          signin();
+        })
+        .catch((error: any) => {
+          console.log(error);
+          setLoginErrors("Incorrect Credentials");
+        });
+    }
   };
 
   return {

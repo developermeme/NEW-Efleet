@@ -9,7 +9,6 @@ export interface IuserRegister {
 
 export interface IHubRegister {
   city: string | undefined;
-
   hubLocation: string | undefined;
   hubAddress1: string | undefined;
   hubAddress2: string | undefined;

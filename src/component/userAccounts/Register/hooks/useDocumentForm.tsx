@@ -12,13 +12,11 @@ import { onClick } from "../../../../helper/Properties";
 import { IDocsRegister } from "../../../../redux/slice/user-slice/Types";
 import { user_baseURL } from "../../../../util/configFile";
 import { setDocsData } from "../../../../redux/slice/user-slice/Slice";
-import { useStorageValues } from "../../../../hooks/Index";
 
 function useDocumentForm() {
   const { handleRegisterRoute } = useContext(ValidationContext) as any;
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const { LoginHubid } = useStorageValues();
 
   // Initial Value From Redux
   const { userData } = useSelector((state: IRootState) => state);
@@ -167,48 +165,35 @@ function useDocumentForm() {
   // Register User In FireBase
 
   const signupInFirebase = async (user: any) => {
-    setSuccessMsg("Processing...");
     const db = firestore();
-
     auth()
       .createUserWithEmailAndPassword(user.email, user.password)
       .then((data: any) => {
         const currentUser = auth().currentUser as any;
-
         const loggedInUser = {
           name: user.name,
           email: user.email,
           uid: data.user.uid,
           role: user.role,
         };
-        console.log(loggedInUser, "registerHubid");
+
         currentUser
           .updateProfile({
             displayName: user.name,
           })
           .then(() => {
-            if (loggedInUser.role === "RIDER") {
-              var x = (LoginHubid as any) || "";
-            } else {
-              x = "";
-            }
             db.collection("efleetusers")
               .doc(data.user.uid)
-
               .set({
                 ...loggedInUser,
-                hubid: x,
                 createdAt: new Date(),
                 lastseen: new Date(),
                 isOnline: true,
               })
               .then(() => {
-                if (loggedInUser.role === "ADMIN" && "SUPER_ADMIN") {
-                  signup(loggedInUser, currentUser);
-                  console.log("User Stored in  firebase in successfully...!");
-                } else {
-                  console.log("Rider Stored in  firebase in successfully...!");
-                }
+                setSuccessMsg("Processing...");
+                signup(loggedInUser, currentUser);
+                console.log("User Stored in  firebase in successfully...!");
               })
               .catch((error) => {
                 setErrors("Error Occurs While Adding Fields Error");
@@ -252,7 +237,6 @@ function useDocumentForm() {
     docsCredentials,
     errors,
     successMsg,
-    signupInFirebase,
     onFocusEvent,
     handleDocsFormChange,
     handleDocsFormBack,

@@ -1,7 +1,5 @@
-
 import * as React from "react";
 import { Route } from "react-router";
-
 import RoutesData, { IRoutesData } from "./RoutesData";
 
 /**
@@ -12,10 +10,10 @@ export const Routes: React.FC = () => {
     <React.Fragment>
       {RoutesData.map((route: IRoutesData, index: number) => (
         <Route
-        key={index}
-        exact={true}
-        path={route.path}
-        component={route.component}
+          key={index}
+          exact={true}
+          path={route.path}
+          component={route.component}
         />
       ))}
     </React.Fragment>

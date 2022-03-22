@@ -19,7 +19,6 @@ export const signup = (user: any) => {
               .set({
                 name: user.name,
                 email: user.email,
-                hubid: user.hubid,
                 role: user.role,
                 uid: data.user.uid,
                 createdAt: new Date(),

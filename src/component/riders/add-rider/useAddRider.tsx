@@ -12,7 +12,6 @@ import {
 
 import usePayment from "../../payments/paymentDetails/usePayment";
 import { useStorageValues } from "../../../hooks/Index";
-import useDocumentForm from "../../userAccounts/Register/hooks/useDocumentForm";
 
 type inputType = string | undefined;
 
@@ -43,7 +42,6 @@ export interface IAddRider {
 function useAddRider(enableEditRider: boolean) {
   const { handleaddnewPayment } = usePayment();
   const { fetchRider, selectedRider } = useRiders();
-  const { signupInFirebase } = useDocumentForm();
   const { LoginHubid, adminUserId, hubLocation } = useStorageValues();
 
   const initialAddRider: IAddRider = {
@@ -206,11 +204,11 @@ function useAddRider(enableEditRider: boolean) {
             },
           })
           .then((response: any) => {
-            setSuccessMsg("Rider Added Successfully...");
+            setSuccessMsg("Rider Updated Successfully...");
             fetchRider();
           })
           .catch((error: any) => {
-            setErrors("Error while adding riders, Please try again");
+            setErrors("Error while updating riders, Please try again");
           });
       } else {
         await axios
@@ -222,15 +220,6 @@ function useAddRider(enableEditRider: boolean) {
           .then((response: any) => {
             setSuccessMsg("Rider Added Successfully...");
             fetchRider();
-            const loggedInRider = {
-              name: response.data.user.userName,
-              email: response.data.user.emailId,
-              password: "Meme@123",
-              hubid: response.data.user.hubId,
-              role: response.data.user.role,
-            };
-            console.log(loggedInRider, "kkkkkkkkkkkkkkkkkk");
-            signupInFirebase(loggedInRider);
             handleaddnewPayment(response);
           })
           .catch((error: any) =>

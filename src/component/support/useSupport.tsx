@@ -8,7 +8,6 @@ import {
 import { IUser } from "../../redux/slice/nav-slice/Types";
 
 const x = JSON.parse(localStorage.getItem("user") as any) as any;
-console.log(x);
 
 export const mockUserId = x?.uid;
 

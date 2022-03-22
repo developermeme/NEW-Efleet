@@ -18,7 +18,7 @@ function Map() {
 
   const { hubData } = useSelector((state) => state);
   const hubs = hubData && hubData.hubs;
-
+  console.log("hubs", hubs);
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {

@@ -2,7 +2,6 @@ export interface IUser {
   email: string;
   name: string;
   role: string;
-  hubid: any;
   uid: string;
   isOnline: boolean;
   createdAt: any;

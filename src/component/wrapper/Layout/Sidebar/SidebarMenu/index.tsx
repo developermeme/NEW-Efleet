@@ -26,15 +26,11 @@ import {
 import { logout } from "../../../../../redux/slice/firebase-actions/auth-actions";
 import { mockUserId } from "../../../../support/useSupport";
 import { useHistory } from "react-router-dom";
-import {
-  LoginPage,
-  useValidationInfoContext,
-} from "../../../../../context/ValidationContext";
 
 interface INavList {
   item: string;
   icon?: any;
-  href: any;
+  href: string;
   Collapse?: boolean;
 }
 
@@ -127,8 +123,6 @@ interface IProps {
 }
 
 export const SidebarMenu = (props: IProps) => {
-  const { handleLoginRoute } = useValidationInfoContext();
-
   const { showNavLabel } = props;
   const { loginRole } = useStorageValues();
   const [open, setOpen] = useState(false);
@@ -169,20 +163,14 @@ export const SidebarMenu = (props: IProps) => {
   const getNonCollapsibleList = (navItem: INavList) => {
     const { item, icon, href, Collapse } = navItem;
     return (
-      <>
-        <li key={item} className={getIsActive(item, Collapse)}>
-          <a href={href}>
-            <i className="sidebar-icon"> {icon}</i>
-            <label
-              // onClick={(e) => handleClick(e, item)}
-              onClick={() => handleLoginRoute(LoginPage.LOGIN)}
-              className={showNavLabel}
-            >
-              {item}
-            </label>
-          </a>
-        </li>
-      </>
+      <li key={item} className={getIsActive(item, Collapse)}>
+        <a href={href}>
+          <i className="sidebar-icon"> {icon}</i>
+          <label onClick={(e) => handleClick(e, item)} className={showNavLabel}>
+            {item}
+          </label>
+        </a>
+      </li>
     );
   };
 
