@@ -1,0 +1,62 @@
+.parcel-config-list {
+  // max-width: 1200px;
+  margin: 3rem auto 2rem;
+  display: grid;
+  grid-gap: 1rem;
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .parcel-config-card {
+    height: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: var(--clr-secondary-root);
+    color: var(--clr-white);
+    padding: 1rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+
+    .parcel-config-item-col {
+      flex: 0 0 auto;
+      width: auto;
+      text-align: left;
+      padding: 0 1rem;
+      letter-spacing: 0.1em;
+
+      span {
+        margin-top: 0.5rem;
+        display: flex;
+        vertical-align: middle;
+      }
+
+      .rounded-circle {
+        height: 30px;
+        line-height: 30px;
+        width: 30px;
+        color: #3c44b1;
+        border-radius: 50%;
+        background-color: #fff;
+        margin-left: auto;
+        text-align: center;
+
+        svg {
+          width: 1rem;
+          fill: var(--clr-red-dark);
+          transition: all 0.2s ease-out;
+
+          &:not(:disabled):hover {
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+}

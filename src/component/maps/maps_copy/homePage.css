@@ -1,0 +1,79 @@
+.HomepageCard {
+  background-color: #4b71f4 !important;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.Imagecard {
+  height: 40%;
+  width: 40%;
+  position: relative !important;
+  border-radius: 30px;
+}
+
+.ShowmoreBtn {
+  background-color: white !important;
+  color: #4b71f4 !important;
+  border: none !important;
+  box-shadow: 3px 3px 4px 3px #00000029 !important;
+  border-radius: 20px;
+  width: 40%;
+  align-items: center !;
+}
+.Home_Map_Card {
+  width: 100%;
+  padding: 7%;
+  overflow: inherit;
+}
+
+.HomePageContainer {
+  overflow: hidden !important;
+  max-height: 20px !important;
+  display: table-row;
+}
+
+.RiderCardRow {
+  position: relative;
+  padding-top: 5%;
+}
+
+.HomePageMapcard {
+  position: relative !important;
+  width: 10%;
+}
+
+.Card-po {
+  flex: 1;
+  background: #aaa;
+  overflow-y: scroll;
+}
+
+.Card-Element {
+  border-radius: 20px !important;
+  width: 30%;
+  justify-content: space-around;
+  background-color: #4b71f4 !important;
+}
+
+.Card-li {
+  overflow: scroll !important;
+  justify-content: space-around;
+}
+
+.HomePageCardImg {
+  object-fit: cover !important;
+  position: relative;
+  width: 100%;
+}
+
+.ShowMore-Btn {
+  background-color: white !important;
+  border-radius: 20px !important;
+  color: #4b71f4 !important;
+  border: none !important;
+  box-shadow: 2px 2px 2px 0px #888888;
+}
+
+.ShowMore-Icon {
+  margin-right: 10px !important;
+}

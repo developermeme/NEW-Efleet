@@ -1,0 +1,129 @@
+.calendar {
+  .react-calendar {
+    box-shadow: 0px 2px 8px #0000001a;
+    border: none;
+  }
+
+  .react-calendar__navigation {
+    height: 55px;
+    margin-bottom: 0 !important;
+    border: none;
+  }
+
+  .react-calendar__navigation__next2-button,
+  .react-calendar__navigation__prev2-button {
+    display: none;
+  }
+
+  .react-calendar__navigation__label {
+    color: #646d82;
+    // cursor: pointer;
+    font: Bold 16px/19px Roboto;
+  }
+
+  .react-calendar__navigation__arrow {
+    color: #1c8f26;
+    // cursor: pointer;
+    font: Bold 2rem Roboto;
+  }
+
+  .react-calendar__month-view__weekdays {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ecf2fa;
+
+    &__weekday abbr[title] {
+      text-decoration: none;
+      cursor: #a4b4be;
+      font: Bold 12px/19px Roboto;
+    }
+  }
+
+  .react-calendar__month-view__days {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+    height: 290px;
+  }
+
+  .react-calendar__tile {
+    color: #646d82;
+    font: Bold 12px/19px Roboto;
+  }
+
+  //   .react-calendar__tile--now {
+  //     background: rgb(239, 239, 239);
+  //   }
+
+  .react-calendar__tile--active {
+    background-color: rgb(239, 239, 239);
+    ~ .react-calendar__tile--now {
+      background: none;
+    }
+  }
+
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    background: rgb(239, 239, 239);
+  }
+
+  .react-calendar__tile:nth-child(7n + 1) {
+    background: #fff8e2;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+
+  .label {
+    font-weight: 500;
+    text-align: center;
+    color: #483de1;
+    font-weight: bold;
+  }
+
+  .box {
+    position: relative;
+    margin: 30px 0;
+  }
+  input[type="text"] {
+    position: relative;
+    width: 100%;
+    height: 3rem;
+    padding: 5px 20px;
+    border: 0;
+    background: #483de1;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: rgb(255, 255, 255);
+    text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.226);
+    user-select: none;
+  }
+  .calendar-icon {
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    margin-top: 8px;
+    right: 8%;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+  }
+  input:active ~ .calendar-icon {
+    transform: sacale(0.9);
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}

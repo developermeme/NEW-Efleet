@@ -1,0 +1,154 @@
+$white: #fff;
+$black: #070919;
+$spacer: 1rem;
+
+// Sidebar Header
+
+.app-sidebar--header {
+  background: transparent;
+  padding: 0 1rem;
+  min-height: 78px;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  font-family: "JosefinSansSemiBold";
+
+  &:after {
+    content: "";
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    position: absolute;
+    background: hsla(0, 0%, 100%, 0.15);
+  }
+
+  .nav-logo {
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $white;
+
+      span {
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.2s ease-in-out;
+        letter-spacing: 0.1em;
+      }
+
+      i {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        border-radius: 0.65rem;
+        margin: 0 0.8rem 0 0;
+        position: relative;
+        left: 0;
+        transition: all 0.2s ease-in-out;
+        background: $white;
+
+        img {
+          width: 20px;
+          margin: 0 auto;
+          animation: logo-spin infinite 10s linear;
+        }
+      }
+    }
+  }
+}
+
+@-webkit-keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Sidebar Menu
+
+.sidebar-navigation {
+  margin: 2rem auto;
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 1px 0;
+
+      & > a,
+      .collapsible-list {
+        position: relative;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        height: 50px;
+        padding: 0 1.33333rem 0 2rem;
+        font-size: 0.86364rem;
+        white-space: nowrap;
+        transform: translateZ(0);
+        transition: all 0.2s ease-in-out;
+        color: $white;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+
+        .sidebar-icon {
+          margin: 0 1rem 0 0;
+          width: 18px;
+          height: 18px;
+          display: flex;
+          font-size: 1.54375rem;
+          transition: all 0.2s ease-in-out;
+          align-items: center;
+          align-content: center;
+        }
+
+        .sidebar-icon-indicator {
+          transform: rotate(-90deg);
+          transition: all 0.2s ease-in-out;
+          opacity: 0.4;
+          font-size: 1.54375rem;
+          margin-left: auto;
+        }
+      }
+    }
+
+    li > a:hover,
+    li.active > a,
+    li > .collapsible-list:hover,
+    li.active > .collapsible-list {
+      color: rgba($white, 1);
+      background: rgba($black, 0.15);
+
+      .sidebar-icon-indicator {
+        opacity: 0.7;
+      }
+
+      .sidebar-icon {
+        & > * {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}

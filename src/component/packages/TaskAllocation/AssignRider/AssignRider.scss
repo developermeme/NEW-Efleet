@@ -1,0 +1,48 @@
+.Assign-Rider {
+  .header {
+    color: var(--clr-primary-root);
+    font-weight: 500;
+  }
+
+  p {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .Product-Table {
+    margin-top: 2rem;
+    width: 50%;
+    max-width: 100%;
+    background-color: transparent;
+    border-spacing: 0;
+    border-top: none;
+    box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .Product-Table td {
+    border-top: 1px solid #ddd;
+    padding: 15px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    text-align: center;
+  }
+
+  .Product-Table > thead:first-child > tr:first-child > td {
+    border-top: 0;
+  }
+
+  .Product-Table > tbody > tr:nth-of-type(2n + 1) {
+    background-color: #f9f9f9;
+  }
+
+  .assign-btn {
+    border-radius: 5px;
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 700px) {
+    .Product-Table {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,120 @@
+$primary-color: #483de1;
+$backgrd: transparent linear-gradient(304deg, #0baed5 0%, #6d25e0 100%) 0% 0%
+  no-repeat padding-box;
+
+.opm-button::before {
+  position: absolute;
+  content: "";
+  display: block;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1, 1);
+  transform-origin: left center;
+  z-index: -1;
+}
+
+button.opm-button.btn-goback:before {
+  content: "";
+  width: 100%;
+  transform: scale(1, 1);
+  background: $primary-color;
+}
+
+.opm-button {
+  // margin: 12px;
+  position: relative;
+  display: inline-block;
+  padding: 7px 14px;
+  line-height: normal;
+  color: white;
+  border: 1px solid $primary-color;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  font-style: normal;
+  background-color: transparent;
+  transition: color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
+    border 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  z-index: 1;
+  transition: all 0.2s ease-out;
+
+  &:not(:disabled):hover {
+    transform: translateY(-2px);
+  }
+}
+
+.primary-button::before {
+  background-color: $primary-color;
+}
+
+.primary-button {
+  color: #fff;
+  border-color: $primary-color;
+}
+
+.secondary-button::before {
+  background-color: $primary-color;
+  transform-origin: right center;
+  transform: scale(0, 1);
+}
+
+.secondary-button {
+  color: $primary-color;
+  border: 1px solid $primary-color;
+}
+
+@media (-moz-touch-enabled: 0), (hover: hover) {
+  .primary-button:not([disabled]):hover {
+    color: $primary-color;
+    background-color: transparent;
+  }
+}
+
+@media (-moz-touch-enabled: 0), (hover: hover) {
+  .opm-button:not([disabled])::before {
+    transition: transform 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+
+  button.opm-button.btn-goback:not([disabled])::before {
+    transition: transform 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+  .opm-button:not([disabled]):hover::before {
+    transform-origin: right center;
+    transform: scale(0, 1);
+  }
+}
+
+@media (-moz-touch-enabled: 0), (hover: hover) {
+  .secondary-button:not([disabled]):hover {
+    color: #fff;
+    border-color: $primary-color;
+  }
+  .secondary-button:not([disabled]):hover::before {
+    transform-origin: left center;
+    transform: scale(1, 1);
+  }
+}
+
+.button-expand {
+  flex: 1 1 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .opm-button {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .opm-button {
+    font-size: 12px;
+    padding: 10px;
+  }
+}

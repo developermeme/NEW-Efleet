@@ -1,0 +1,118 @@
+.multi-select {
+  z-index: 30;
+
+  .select {
+    position: relative;
+    display: inline-block;
+    min-width: 150px;
+  }
+  .select:focus {
+    outline: 0;
+    .selection {
+      box-shadow: 0 0 1px 1px #999;
+    }
+  }
+  .label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .selection {
+    position: relative;
+    padding: 5px;
+    border: 1px solid #ddd;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .value {
+    position: relative;
+    display: inline-block;
+    padding: 5px 10px;
+  }
+  .multiple {
+    padding-right: 30px;
+    // margin: 2px;
+    background: #f0f0f0;
+    color: #999;
+  }
+
+  .single {
+    // margin: 2px;
+    color: #999;
+  }
+
+  .delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    padding: 10px;
+    font-size: 10px;
+    cursor: pointer;
+  }
+  .placeholder {
+    padding: 5px;
+    color: #999;
+    background: none;
+    cursor: default !important;
+  }
+  .arrow {
+    font-size: 10px;
+    color: #999;
+  }
+  .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: solid #ddd;
+    border-width: 0 1px;
+    background: #fff;
+  }
+  .option {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  .option.selected {
+    background: #f0f0f0;
+  }
+  .option.focused {
+    background: #f5f5f5;
+  }
+  .checkbox {
+    content: "";
+    vertical-align: top;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    padding: 2px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    margin: 2px 12px 0 0;
+    color: #fff;
+    font-size: 10px;
+  }
+  .selected .checkbox {
+    background: #999;
+  }
+
+  svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+
+  @media screen and (max-width: 300px) {
+    .select {
+      max-width: 200px;
+    }
+    .selection {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+}

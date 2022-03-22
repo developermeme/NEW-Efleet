@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  font-family: "JosefinSansMedium";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-height: 100vh !important;
+  width: 100%;
+  
+}
+

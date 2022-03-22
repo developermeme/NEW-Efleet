@@ -1,0 +1,83 @@
+@import "../../../asset/scss/index.scss";
+
+$backgrd: transparent linear-gradient(304deg, #0baed5 0%, #6d25e0 100%) 0% 0%
+  no-repeat padding-box;
+
+.add_rider_container {
+  background: $backgrd;
+  border: 5px solid white;
+  box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+
+  .add-rider-topnav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 1rem 1rem 0;
+
+    .btn-goback {
+      display: inline-block;
+      line-height: 1.5;
+      text-align: center;
+      vertical-align: middle;
+      border-radius: 0.2rem;
+      color: var(--clr-white);
+      border: 1px solid white;
+      background: $backgrd;
+      svg {
+        display: inline-block;
+        font-size: inherit;
+        height: 1em;
+        width: 0.875em;
+        overflow: visible;
+        vertical-align: -0.125em;
+        margin-right: 0.5rem !important;
+      }
+    }
+  }
+
+  .add-rider-form {
+    margin: 1rem auto;
+    padding: 0 0.8em;
+
+    Form {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .active-input {
+      background: $backgrd;
+      color: var(--clr-white);
+      border: none;
+      outline: none;
+    }
+
+    .form-label {
+      color: var(--clr-white);
+      font-weight: 400;
+    }
+
+    .btn {
+      color: var(--clr-white);
+      border: 2px solid var(--clr-white);
+      display: flex;
+      background: $backgrd;
+      justify-content: center;
+      margin: 3rem auto 0;
+      width: 100%;
+    }
+
+    @media screen and (max-width: 700px) {
+      .input-button {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.rider_proof_img,
+.rider_profile_img {
+  display: block;
+  margin: 1rem auto 2rem;
+  height: 80;
+  width: 180px !important;
+}

@@ -1,0 +1,134 @@
+.riders-legends {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 2rem;
+
+  .btn-add {
+    display: inline-block;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0.2rem;
+    svg {
+      display: inline-block;
+      font-size: inherit;
+      height: 1em;
+      width: 0.875em;
+      overflow: visible;
+      vertical-align: -0.125em;
+      margin-right: 0.5rem !important;
+    }
+  }
+  .rider-btn-group {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+
+    .rider-btn {
+      margin-left: 10px;
+      display: flex;
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+    }
+
+    .primary {
+      background: var(--clr-green-dark);
+    }
+    .secondary {
+      background: var(--clr-red);
+    }
+    .active {
+      background: var(--clr-grey-7) !important;
+    }
+  }
+}
+
+.rider-container {
+  // max-width: 1200px;
+  margin: 3rem auto 2rem;
+  display: grid;
+  grid-gap: 1rem;
+
+  .rider-item {
+    padding: 1rem;
+    height: 8rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    background-color: #483de1;
+    color: var(--clr-white);
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &:hover {
+      background-color: var(--clr-white);
+      color: #483de1;
+    }
+
+    .rider-item-col {
+      flex: 0 0 auto;
+      width: auto;
+      text-align: left;
+      padding: 0 1rem;
+      letter-spacing: 0.1em;
+
+      .rider-avathar {
+        border-radius: 50%;
+        width: 6rem;
+        height: 6rem;
+      }
+      h3 {
+        color: inherit;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+      }
+
+      span {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      svg {
+        height: 1.2rem;
+        width: 1.2rem;
+        margin-right: 0.5rem;
+        margin-left: -5px;
+      }
+
+      .offline {
+        svg {
+          color: var(--clr-red);
+        }
+      }
+
+      .online {
+        svg {
+          color: var(--clr-green-dark);
+        }
+      }
+    }
+  }
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.no-riders {
+  display: flex;
+  height: inherit;
+  justify-content: center;
+  align-items: center;
+  color: #483de1;
+  padding: 3rem 0;
+}

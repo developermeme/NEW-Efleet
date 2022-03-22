@@ -1,0 +1,58 @@
+.main-side {
+  display: flex;
+  height: 89vh;
+  // height: calc(100% - 78px);
+  overflow: hidden !important;
+  background: #fff;
+  box-shadow: 0 4px 2px -2px #bfb9b973;
+  border-top: 1px solid #dadce0;
+  font-family: "Source Sans Pro", sans-serif;
+  margin: -2rem -2rem 0;
+
+  .friend-side {
+    border-right: 1px solid #dadce0;
+    height: 100%;
+    width: 30%;
+  }
+
+  .scroll {
+    overflow: auto;
+  }
+
+  .chat-side {
+    height: 100%;
+    width: 70%;
+  }
+
+  @media screen and (max-width: 1520px) {
+    .friend-side {
+      height: 100%;
+      width: 40%;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    flex-direction: column-reverse;
+    height: 90vh;
+    // height: 100%;
+
+    .friend-side {
+      height: 100%;
+      width: 100%;
+    }
+
+    .chat-side {
+      display: none;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .chat-side.active {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

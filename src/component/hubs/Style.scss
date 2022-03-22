@@ -1,0 +1,120 @@
+.hubs-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+
+  .hubs-btn-grp {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+
+    .hub-btn {
+      margin-right: 10px;
+      display: flex;
+      border: none;
+      color: #fff;
+      text-transform: capitalize;
+    }
+
+    .primary {
+      background: var(--clr-grey-7);
+      &.active {
+        background: var(--clr-green-dark) !important;
+      }
+    }
+    .secondary {
+      background: var(--clr-grey-7);
+      &.active {
+        background: var(--clr-red) !important;
+      }
+    }
+  }
+
+  .hubs-list {
+    // max-width: 1200px;
+    margin: 3rem auto 2rem;
+    display: grid;
+    grid-gap: 1rem;
+
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 900px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .hub-card {
+      height: auto;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      background-color: #483de1;
+      color: var(--clr-white);
+      padding: 1rem 0.5rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      &:hover {
+        background-color: var(--clr-white);
+        color: #483de1;
+      }
+
+      .hub-item-col {
+        flex: 0 0 auto;
+        width: auto;
+        text-align: left;
+        padding: 0 1rem;
+        letter-spacing: 0.1em;
+
+        .hub-avathar {
+          border-radius: 50%;
+          width: 4rem;
+          height: 4rem;
+        }
+
+        span {
+          margin-top: 0.5rem;
+          display: flex;
+          vertical-align: middle;
+
+          svg {
+            height: 1.2rem;
+            width: 1.2rem;
+            margin-right: 0.8rem;
+            margin-left: -5px;
+          }
+        }
+
+        .hubs-btn-grp {
+          position: relative;
+          display: inline-flex;
+          vertical-align: middle;
+          margin: 1rem auto;
+
+          .hub-btn {
+            margin-right: 10px;
+            display: flex;
+            border: none;
+            color: #fff;
+            text-transform: capitalize;
+          }
+
+          .primary {
+            background: var(--clr-green-dark);
+
+            &:hover {
+              background: var(--clr-green-light);
+            }
+          }
+          .secondary {
+            background: var(--clr-red);
+            &:hover {
+              background: var(--clr-red-light);
+            }
+          }
+        }
+      }
+    }
+  }
+}

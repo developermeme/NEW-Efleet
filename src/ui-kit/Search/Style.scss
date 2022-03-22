@@ -1,0 +1,41 @@
+.search-form {
+  display: flex;
+  background-color: #ffffff;
+
+  .form-input {
+    width: 100%;
+  }
+  .form-input,
+  .submit-btn {
+    padding: 0.75rem 1.25rem;
+    border: none;
+    outline: none;
+    letter-spacing: 0.1rem;
+    font-size: 1.2rem;
+    background: transparent;
+    color: #483de1;
+    border-bottom: 3px solid #483de1;
+  }
+
+  .submit-btn {
+    font-size: 1.4rem;
+    svg {
+      strokewidth: 2;
+      stroke: #483de1;
+      height: 30px;
+    }
+  }
+
+  .form-input {
+    color: hsl(209, 34%, 30%);
+  }
+  .form-input::placeholder {
+    color: hsl(210, 22%, 49%);
+  }
+
+  .close-icon {
+    svg {
+      strokewidth: 3;
+    }
+  }
+}

@@ -1,0 +1,92 @@
+export const chatList = [
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "offline",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "offline",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "offline",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "offline",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "online",
+    time: "05:21PM",
+  },
+  {
+    name: "Osaid Ayadi",
+    subchat: "Blablalbalblablalba",
+    status: "offline",
+    time: "05:21PM",
+  },
+];

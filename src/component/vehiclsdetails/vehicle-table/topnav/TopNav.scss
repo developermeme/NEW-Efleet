@@ -1,0 +1,40 @@
+.add-vehicle-topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem auto;
+
+  .btn-add {
+    display: inline-block;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0.2rem;
+
+    svg {
+      display: inline-block;
+      font-size: inherit;
+      height: 1em;
+      width: 0.875em;
+      overflow: visible;
+      vertical-align: -0.125em;
+      margin-right: 0.5rem !important;
+    }
+  }
+
+  .add-vehicle-dropdown {
+    display: inherit;
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width: 400px) {
+    display: flex;
+    flex-flow: column-reverse;
+    align-items: flex-start;
+
+    .btn-add {
+      align-self: flex-end;
+      margin-bottom: 20px;
+    }
+  }
+}

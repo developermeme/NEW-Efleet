@@ -1,0 +1,67 @@
+.regions-list {
+  width: 90vw;
+  max-width: 1170px;
+  margin: 5rem auto;
+
+  .container {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .card {
+    color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 2rem 3.5rem;
+    text-align: center;
+    background-color: #483de1;
+  }
+
+  .card h4 {
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  .btn {
+    padding: 0.35rem 0.75rem;
+    letter-spacing: 1.6px;
+    font-size: 0.75rem;
+    color: #483de1;
+    background: #fff;
+    font-weight: bold;
+    border-radius: 0.75rem;
+    border-color: transparent;
+    text-transform: uppercase;
+    transition: all 0.3s linear;
+    cursor: pointer;
+  }
+
+  .card-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0 0;
+
+    span {
+      background-color: white;
+      padding: 5px 10px;
+      color: #483de1;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  }
+
+  @media screen and (min-width: 576px) {
+    .container {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 300px) {
+    width: 100%;
+    margin: 2rem auto;
+    .card {
+      padding: 2rem 1rem;
+    }
+  }
+}
