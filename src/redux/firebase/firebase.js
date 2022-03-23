@@ -108,6 +108,7 @@ export const deleteUserDocumentFromAuth = async (userAuth) => {
       console.log(error);
     });
 };
+
 // Conversation
 
 export const getRealtimeUsers = (uid) => {
