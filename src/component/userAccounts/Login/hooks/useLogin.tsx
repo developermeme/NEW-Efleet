@@ -8,6 +8,7 @@ import {
   signInAuthUserWithEmailAndPassword,
   updateUserDocumentFromAuth,
 } from "../../../../redux/firebase/firebase";
+import { useHistory } from "react-router-dom";
 
 export type loginState = {
   emailId: string;
@@ -25,6 +26,8 @@ export const useLogin = () => {
     React.useState<loginState>(loginInitialState);
   const [loginErrors, setLoginErrors] = React.useState<string>("");
   const [successMsg, setSuccessMsg] = React.useState("");
+
+  const history = useHistory();
 
   const handleLoginFormChange = (e: onChange) => {
     const name = e.target.name;
@@ -85,6 +88,7 @@ export const useLogin = () => {
       await updateUserDocumentFromAuth(user, additionalInformation);
       setSuccessMsg("Sucessfully logged in!");
       localStorage.setItem("user", JSON.stringify(user));
+      history.push("/Home");
     } catch (error) {
       console.log("error", error);
       localStorage.clear();
