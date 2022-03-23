@@ -66,7 +66,6 @@ export const useEmailVerify = () => {
       .catch((error: any) => {
         console.log(error);
         setEmailError("Please Enter Registered Email");
-        // handleErrorResponse(error);
       });
   };
 
