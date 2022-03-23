@@ -12,6 +12,10 @@ import {
 
 import usePayment from "../../payments/paymentDetails/usePayment";
 import { useStorageValues } from "../../../hooks/Index";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../../../redux/firebase/firebase";
 
 type inputType = string | undefined;
 
@@ -180,11 +184,50 @@ function useAddRider(enableEditRider: boolean) {
     return formIsValid;
   };
 
+  const userdata = {
+    name: riderDetails?.userName,
+    role: riderDetails?.role,
+    id: riderDetails?.phoneNumber,
+    phone: riderDetails?.phoneNumber,
+    isOnline: true,
+    lastSeen: Date.now(),
+  };
+
+  const addUserData = async (user: any) => {
+    setSuccessMsg("Processing...");
+    try {
+      await createUserDocumentFromAuth(user, userdata);
+      // await signup(user);
+      // localStorage.setItem("user", JSON.stringify(user));
+    } catch (error) {
+      console.log("user details update encountered an error", error);
+      setErrors("User data update encountered an error");
+    }
+  };
+
   const handleFormSubmit = async (e: onClick) => {
     e.preventDefault();
+    const password = "Meme@123";
+
     if (handleFormvalidate()) {
       setSuccessMsg("Processing...");
       let formData: any = new FormData();
+
+      try {
+        const { user } = (await createAuthUserWithEmailAndPassword(
+          riderDetails?.emailId,
+          password
+        )) as any;
+
+        addUserData(user);
+      } catch (error: any) {
+        if (error.code === "auth/email-already-in-use") {
+          setErrors("Cannot create user, email already in use");
+        } else {
+          setErrors("user creation encountered an error");
+          console.log("user creation encountered an error", error);
+        }
+      }
 
       // Appending Data
       Object.entries(riderDetails).map(([key, value]) => {
