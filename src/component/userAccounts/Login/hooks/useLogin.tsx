@@ -103,6 +103,7 @@ export const useLogin = () => {
         password
       )) as any;
       await updateUserData(user);
+      window.location.href = "/Home";
     } catch (error: any) {
       switch (error.code) {
         case "auth/wrong-password":

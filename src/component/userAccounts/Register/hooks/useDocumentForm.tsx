@@ -168,7 +168,6 @@ function useDocumentForm() {
   };
 
   const addUserData = async (user: any) => {
-    setSuccessMsg("Processing...");
     try {
       await createUserDocumentFromAuth(user, userdata);
       await signup(user);
@@ -180,6 +179,7 @@ function useDocumentForm() {
   };
 
   const handleRegisterSubmit = async (e: onClick) => {
+    setSuccessMsg("Processing...");
     e.preventDefault();
 
     const password = "Meme@123";
