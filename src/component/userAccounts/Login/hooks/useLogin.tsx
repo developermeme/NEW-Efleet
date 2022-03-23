@@ -1,10 +1,13 @@
 import axios from "axios";
 import React from "react";
 import { validateEmailId, validatePassword } from "../Script";
-import { auth, firestore } from "firebase";
 import { onChange, onClick } from "../../../../helper/Properties";
 import { useStorageValues } from "../../../../hooks/useLocalStorage";
 import { user_baseURL } from "../../../../util/configFile";
+import {
+  signInAuthUserWithEmailAndPassword,
+  updateUserDocumentFromAuth,
+} from "../../../../redux/firebase/firebase";
 
 export type loginState = {
   emailId: string;
@@ -73,50 +76,46 @@ export const useLogin = () => {
     return () => clearTimeout(timer);
   }, [loginErrors]);
 
-  // Updating Logged In User in Firebase
-
-  const user = {
-    email: loginCredentials.emailId,
-    password: "Meme@123",
+  const updateUserData = async (user: any) => {
+    try {
+      const additionalInformation = {
+        isOnline: true,
+        lastSeen: Date.now(),
+      };
+      await updateUserDocumentFromAuth(user, additionalInformation);
+      setSuccessMsg("Sucessfully logged in!");
+      localStorage.setItem("user", JSON.stringify(user));
+    } catch (error) {
+      console.log("error", error);
+      localStorage.clear();
+      setLoginErrors(
+        "Please contact support team, error While updating user data"
+      );
+    }
   };
 
-  const signin = () => {
+  const handleUserFirebaseLogin = async () => {
     setSuccessMsg("Processing...");
-    auth()
-      .signInWithEmailAndPassword(user.email, user.password)
-      .then((data: any) => {
-        const db = firestore();
-        const loggedInUser = {
-          name: data.user.displayName,
-          email: data.user.email,
-          role: data.user.role,
-          uid: data.user.uid,
-        };
-        db.collection("efleetusers")
-          .doc(data.user.uid)
-          .update({
-            isOnline: true,
-            lastseen: new Date(),
-          })
-          .then(() => {
-            setSuccessMsg("Sucessfully logged in!");
-
-            localStorage.setItem("user", JSON.stringify(loggedInUser));
-
-            window.location.href = "/Home";
-          })
-          .catch((error) => {
-            console.log(error);
-            localStorage.clear();
-            setLoginErrors(
-              "Something Went Wrong!, Please Contact Support Team"
-            );
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoginErrors("Please Contact Support Team");
-      });
+    const password = "Meme@123";
+    try {
+      const { user } = (await signInAuthUserWithEmailAndPassword(
+        loginCredentials.emailId,
+        password
+      )) as any;
+      await updateUserData(user);
+    } catch (error: any) {
+      switch (error.code) {
+        case "auth/wrong-password":
+          setLoginErrors("Incorrect password for email");
+          break;
+        case "auth/user-not-found":
+          setLoginErrors("No user associated with this email");
+          break;
+        default:
+          console.log(error);
+          setLoginErrors("Something went wrong!, please contact support team");
+      }
+    }
   };
 
   const handleLoginSubmit = async (e: onClick) => {
@@ -131,15 +130,14 @@ export const useLogin = () => {
       await axios
         .post(`${user_baseURL}/users/login`, user)
         .then((response: any) => {
-          console.log("Loginresp", response.data.userId);
-
           setLoginEmail(user.emailId as any);
           setLoginHubid(response.data.hubId);
           setLoginRole(response.data.role);
           setAdminUserId(response.data.userId);
           setHubLocation(response.data.hubLocation);
+
           // Ensure User is available in firebase
-          signin();
+          handleUserFirebaseLogin();
         })
         .catch((error: any) => {
           console.log(error);

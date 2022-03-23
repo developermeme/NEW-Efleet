@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { auth, firestore } from "firebase";
 import {
   RegisterPage,
   ValidationContext,
@@ -12,6 +11,11 @@ import { onClick } from "../../../../helper/Properties";
 import { IDocsRegister } from "../../../../redux/slice/user-slice/Types";
 import { user_baseURL } from "../../../../util/configFile";
 import { setDocsData } from "../../../../redux/slice/user-slice/Slice";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+  deleteUserDocumentFromAuth,
+} from "../../../../redux/firebase/firebase";
 
 function useDocumentForm() {
   const { handleRegisterRoute } = useContext(ValidationContext) as any;
@@ -119,7 +123,7 @@ function useDocumentForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const signup = async (loggedInUser: any, currentUser: any) => {
+  const signup = async (loggedInUser: any) => {
     // Register User In Efleet Backend
     const docdata = {
       ...credentials,
@@ -140,91 +144,66 @@ function useDocumentForm() {
       .post(`${user_baseURL}/users/hubadminreg`, hubRegisterFormData)
       .then((response: any) => {
         setSuccessMsg("User logged in successfully...!");
-        console.log("User logged in successfully...!");
         localStorage.setItem("user", JSON.stringify(loggedInUser));
         history.push("/");
       })
-      .catch((error: any) => {
+      .catch(async (error: any) => {
         setErrors("Something Went Wrong , try Later");
-        if (error.response!.status === 501 || 500) {
-          history.push("/");
-        } else {
-          const user = currentUser;
-          user
-            .delete()
-            .then(() => {
-              console.log("deleted Successfully");
-            })
-            .catch((error: any) =>
-              console.log("Couldn't delete the User In fire base")
-            );
+        try {
+          await deleteUserDocumentFromAuth(loggedInUser);
+          console.log("deleted Successfully");
+        } catch (error) {
+          console.log("Couldn't delete the User In fire base");
         }
-      });
-  };
-
-  // Register User In FireBase
-
-  const signupInFirebase = async (user: any) => {
-    const db = firestore();
-    auth()
-      .createUserWithEmailAndPassword(user.email, user.password)
-      .then((data: any) => {
-        const currentUser = auth().currentUser as any;
-        const loggedInUser = {
-          name: user.name,
-          email: user.email,
-          uid: data.user.uid,
-          role: user.role,
-        };
-
-        currentUser
-          .updateProfile({
-            displayName: user.name,
-          })
-          .then(() => {
-            db.collection("efleetusers")
-              .doc(data.user.uid)
-              .set({
-                ...loggedInUser,
-                createdAt: new Date(),
-                lastseen: new Date(),
-                isOnline: true,
-              })
-              .then(() => {
-                setSuccessMsg("Processing...");
-                signup(loggedInUser, currentUser);
-                console.log("User Stored in  firebase in successfully...!");
-              })
-              .catch((error) => {
-                setErrors("Error Occurs While Adding Fields Error");
-                console.log("Adding Extra Fields Error", error);
-              });
-          })
-          .catch((error: any) => {
-            setErrors("Update Profile Error");
-            console.log("Update Profile Error", error);
-          });
-      })
-      .catch((error) => {
-        setErrors("Error Occurs While Registering");
-        console.log(error);
       });
   };
 
   const userdata = {
     name: UserCredentials?.userName,
-    email: UserCredentials?.emailId,
-    password: "Meme@123",
     role: UserCredentials?.role,
+    id: UserCredentials?.phoneNumber,
+    phone: UserCredentials?.phoneNumber,
+    isOnline: true,
+    lastSeen: Date.now(),
+  };
+
+  const addUserData = async (user: any) => {
+    setSuccessMsg("Processing...");
+    try {
+      await createUserDocumentFromAuth(user, userdata);
+      await signup(user);
+      // localStorage.setItem("user", JSON.stringify(user));
+    } catch (error) {
+      console.log("user details update encountered an error", error);
+      setErrors("User data update encountered an error");
+    }
   };
 
   const handleRegisterSubmit = async (e: onClick) => {
     e.preventDefault();
 
+    const password = "Meme@123";
+
     if (handleDocsvalidate()) {
       dispatch(setDocsData(docsCredentials));
       getGeoLocation();
-      signupInFirebase(userdata);
+      // signupInFirebase(userdata);
+
+      try {
+        const { user } = (await createAuthUserWithEmailAndPassword(
+          UserCredentials?.emailId,
+          password
+        )) as any;
+
+        addUserData(user);
+      } catch (error: any) {
+        if (error.code === "auth/email-already-in-use") {
+          setErrors("Cannot create user, email already in use");
+        } else {
+          setErrors("user creation encountered an error");
+          console.log("user creation encountered an error", error);
+        }
+      }
     }
   };
 

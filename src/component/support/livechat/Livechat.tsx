@@ -1,36 +1,32 @@
 import clsx from "clsx";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import useSupport, { mockUserId } from "../useSupport";
+import useSupport, { authUserId } from "../useSupport";
 import { onClick } from "../../../helper/Properties";
 import "./Livechat.scss";
 import { IConversation } from "../../../redux/slice/nav-slice/Types";
-import { updateMessage } from "../../../redux/slice/firebase-actions/user-actions";
+import { updateMessage } from "../../../redux/firebase/firebase";
 
 function Livechat() {
+  
   const { toggleChat, activeUser, formateFireBaseDate, conversations } =
     useSupport();
 
-  // console.log("conversations", conversations);
-
   const [message, setMessage] = useState("");
 
-  const { isToday, date, atTime } = formateFireBaseDate(activeUser?.lastseen);
+  const { isToday, date, atTime } = formateFireBaseDate(activeUser?.lastSeen);
   const lastseen = isToday ? atTime : date;
-
-  const dispatch = useDispatch() as any;
 
   const submitMessage = (e: onClick) => {
     e.preventDefault();
 
     const msgObj = {
-      user_uid_1: mockUserId,
+      user_uid_1: authUserId,
       user_uid_2: activeUser?.uid,
       message,
     };
 
     if (message !== "") {
-      dispatch(updateMessage(msgObj)).then(() => {
+      updateMessage(msgObj).then(() => {
         setMessage("");
       });
     }
@@ -72,7 +68,7 @@ function Livechat() {
           <div
             key={index}
             className={
-              con.user_uid_1 === mockUserId
+              con.user_uid_1 === authUserId
                 ? "message-send"
                 : "message-reserved"
             }

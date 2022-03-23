@@ -5,7 +5,7 @@ export interface IUser {
   uid: string;
   isOnline: boolean;
   createdAt: any;
-  lastseen: any;
+  lastSeen: any;
 }
 
 export interface IUserList {

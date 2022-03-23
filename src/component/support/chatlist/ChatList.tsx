@@ -26,31 +26,13 @@ function ChatList() {
       <div className="message-title">
         <p>All Messages</p>
       </div>
-      {/* <div className="message-tools">
-        <div>
-          <span>
-            <i className="fas fa-heart"></i>
-          </span>
-        </div>
-        <div>
-          <span>
-            <i className="fas fa-filter"></i>
-          </span>
-        </div>
-      </div> */}
     </div>
   );
 
   const chatListView = userList?.users?.map((record: IUser, index: number) => {
-    const time = record.lastseen;
+    const time = record.lastSeen;
 
     const { isToday, date, atTime } = formateFireBaseDate(time);
-
-    // function generateRandomCode() {
-    //   var myRandomColor =
-    //     "#" + Math.floor(Math.random() * 16777215).toString(16);
-    //   return myRandomColor;
-    // }
 
     return (
       <li
