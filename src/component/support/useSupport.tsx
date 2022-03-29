@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
+import { getRealtimeConversations } from "../../redux/firebase/firebase";
 import { IRootState } from "../../redux/reducer/CombineReducer";
-import { getRealtimeConversations } from "../../redux/slice/firebase-actions/user-actions";
+
 import {
   setActiveChat,
   setActiveUser,
 } from "../../redux/slice/nav-slice/Slice";
 import { IUser } from "../../redux/slice/nav-slice/Types";
 
-const x = JSON.parse(localStorage.getItem("user") as any) as any;
-
-export const mockUserId = x?.uid;
+export const authUser = JSON.parse(localStorage.getItem("user") as any) as any;
+export const authUserId = authUser?.uid;
 
 function useSupport() {
   const { navData } = useSelector((state: IRootState) => state);
@@ -26,7 +26,7 @@ function useSupport() {
 
   const setActiveUserInfo = (user: IUser) => {
     dispatch(setActiveUser(user));
-    dispatch(getRealtimeConversations({ uid_1: mockUserId, uid_2: user.uid }));
+    dispatch(getRealtimeConversations({ uid_1: authUserId, uid_2: user.uid }));
   };
 
   const handleUserItemClick = (user: IUser) => {
@@ -35,9 +35,7 @@ function useSupport() {
   };
 
   const formateFireBaseDate = (time: any) => {
-    const fireBaseTime = new Date(
-      time?.seconds * 1000 + time?.nanoseconds / 1000000
-    );
+    const fireBaseTime = new Date(time);
     const date = fireBaseTime.toLocaleDateString("en-US");
     const atTime = fireBaseTime.toLocaleTimeString(navigator.language, {
       hour: "2-digit",
