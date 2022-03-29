@@ -23,9 +23,10 @@ import {
   setSearchData,
   setSelectedNav,
 } from "../../../../../redux/slice/nav-slice/Slice";
-import { logout } from "../../../../../redux/slice/firebase-actions/auth-actions";
-import { mockUserId } from "../../../../support/useSupport";
+
 import { useHistory } from "react-router-dom";
+import { authUser } from "../../../../support/useSupport";
+import { updateUserDocumentFromAuth } from "../../../../../redux/firebase/firebase";
 
 interface INavList {
   item: string;
@@ -141,15 +142,27 @@ export const SidebarMenu = (props: IProps) => {
       ? getFilteredList(superAdminHideTabs)
       : getFilteredList(adminHideTabs);
 
+  const handleLogout = async () => {
+    try {
+      const additionalInformation = {
+        isOnline: false,
+        lastSeen: Date.now(),
+      };
+      await updateUserDocumentFromAuth(authUser, additionalInformation);
+      localStorage.clear();
+      history.push("/");
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleClick = (e: onClick, menu: string) => {
     dispatch(setActiveSearch(false));
     dispatch(setSearchData(undefined));
     dispatch(setSelectedNav(menu));
     if (menu === "Logout") {
-      dispatch(logout(mockUserId));
-      localStorage.clear();
-      history.push("/");
-      window.location.reload();
+      handleLogout();
     } else return;
   };
 

@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import clsx from "clsx";
-import useSupport, { mockUserId } from "./useSupport";
+import useSupport, { authUserId } from "./useSupport";
 import ChatList from "./chatlist/ChatList";
 import Livechat from "./livechat/Livechat";
 import "./Style.scss";
 import { useDispatch } from "react-redux";
-import { getRealtimeUsers } from "../../redux/slice/firebase-actions/user-actions";
+import { getRealtimeUsers } from "../../redux/firebase/firebase";
+
 
 function Support() {
   const { activeChat } = useSupport();
@@ -13,7 +14,7 @@ function Support() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getRealtimeUsers(mockUserId));
+    dispatch(getRealtimeUsers(authUserId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
